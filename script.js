@@ -42,6 +42,7 @@ const btnLogin = document.querySelector('.login__btn');
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
 
+// Functions
 const displayMovements = function(movements, sort = false) {
     containerMovements.innerHTML = '';
 
@@ -61,7 +62,23 @@ const displayMovements = function(movements, sort = false) {
     });
 };
 
-// Functions
+const createUsernames = function(accs) {
+    accs.forEach(function(acc) {
+       acc.username = acc.owner.toLowerCase().split(' ').map(name => name[0]).join('');
+    });
+    console.log(accs);
+    /*
+    (4) [{...}, {...}, {...}, {...}]
+        0: {owner: 'Joe Chang', movements: Array(8), interestRate: 1.2, pin: 1111, username: 'jc'}
+        1: {owner: 'Mai Shiranui', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'ms'}
+        2: {owner: 'Kula Diamond', movements: Array(8), interestRate: 0.7, pin: 3333, username: 'kd'}
+        3: {owner: 'Morrigan Aensland', movements: Array(5), interestRate: 1, pin: 4444, username: 'ma'}
+        length: 4
+        [[Prototype]]: Array(0)
+     */
+};
+createUsernames(accounts);
+
 const updateUI = function(acc) {
     // Display movements
     displayMovements(acc.movements);
