@@ -33,6 +33,10 @@ const accounts = [account1, account2, account3, account4];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
+const labelBalance = document.querySelector('.balance__value');
+const labelSumIn = document.querySelector('.summary__value--in');
+const labelSumOut = document.querySelector('.summary__value--out');
+const labelSumInterest = document.querySelector('.summary__value--interest');
 
 const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
@@ -62,6 +66,15 @@ const displayMovements = function(movements, sort = false) {
     });
 };
 
+const calcDisplayBalance = function(acc) {
+    acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+    labelBalance.textContent = `${acc.balance}€`;
+};
+
+const calcDisplaySummary = function(acc) {
+
+};
+
 const createUsernames = function(accs) {
     accs.forEach(function(acc) {
        acc.username = acc.owner.toLowerCase().split(' ').map(name => name[0]).join('');
@@ -84,9 +97,11 @@ const updateUI = function(acc) {
     displayMovements(acc.movements);
 
     // Display balance
+    calcDisplayBalance(acc);
 
     // Display summary
-}
+    calcDisplaySummary(acc);
+};
 
 // Event handlers
 let currentAccount;
