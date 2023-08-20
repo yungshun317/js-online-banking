@@ -90,7 +90,20 @@ const formatMovementDate = function(date, locale) {
     if (daysPassed === 1) return "Yesterday";
     if (daysPassed <= 7) return `${daysPassed} days ago`;
 
+    /*
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+     */
     return new Intl.DateTimeFormat(locale).format(date);
+};
+
+const formatCur = function(value, locale, currency) {
+    return new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency: currency
+    }).format(value);
 };
 
 const displayMovements = function(acc, sort = false) {
@@ -120,19 +133,19 @@ const displayMovements = function(acc, sort = false) {
 
 const calcDisplayBalance = function(acc) {
     acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-    labelBalance.textContent = `${acc.balance}€`;
+    labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 const calcDisplaySummary = function(acc) {
     const incomes = acc.movements
         .filter(mov => mov > 0)
         .reduce((acc, mov) => acc + mov, 0);
-    labelSumIn.textContent = `${incomes}€`;
+    labelSumIn.textContent = formatCur(incomes, acc.locale, acc.currency);
 
     const out = acc.movements
         .filter(mov => mov < 0)
         .reduce((acc, mov) => acc + mov, 0);
-    labelSumOut.textContent = `${Math.abs(out)}€`;
+    labelSumOut.textContent = formatCur(Math.abs(out), acc.locale, acc.currency);
 
     const interest = acc.movements
         .filter(mov => mov > 0)
@@ -142,7 +155,7 @@ const calcDisplaySummary = function(acc) {
             return int >= 1;
         })
         .reduce((acc, int) => acc + int, 0);
-    labelSumInterest.textContent = `${interest}€`;
+    labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 const createUsernames = function(accs) {
