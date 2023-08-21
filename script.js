@@ -16,8 +16,8 @@ const account1 = {
         "2020-07-28T23:36:17.929Z",
         "2020-08-01T10:51:36.790Z",
     ],
-    currency: "EUR",
-    locale: "pt-PT",
+    currency: "TWD",
+    locale: "zh-TW",
 };
 
 const account2 = {
@@ -290,14 +290,21 @@ btnTransfer.addEventListener('click', function(e) {
     if (amount > 0 &&
         receiverAcc &&
         currentAccount.balance >= amount &&
-        receiverAcc?.username !== currentAccount.username
-    ) {
+        receiverAcc?.username !== currentAccount.username) {
         // Do the transfer
         currentAccount.movements.push(-amount);
         receiverAcc.movements.push(amount);
 
+        // Add transfer date
+        currentAccount.movementsDates.push(new Date().toISOString());
+        receiverAcc.movementsDates.push(new Date().toISOString());
+
         // Update UI
         updateUI(currentAccount);
+
+        // Reset timer
+        clearInterval(timer);
+        timer = startLogOutTimer();
     }
 });
 
@@ -307,11 +314,20 @@ btnLoan.addEventListener('click', function(e) {
     const amount = Number(inputLoanAmount.value);
 
     if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-        // Add movement
-        currentAccount.movements.push(amount);
+        setTimeout(function() {
+            // Add movement
+            currentAccount.movements.push(amount);
 
-        // Update UI
-        updateUI(currentAccount);
+            // Add loan date
+            currentAccount.movementsDates.push(new Date().toISOString());
+
+            // Update UI
+            updateUI(currentAccount);
+
+            // Reset timer
+            clearInterval(timer);
+            timer = startLogOutTimer();
+        }, 2500);
     }
     inputLoanAmount.value = '';
 });
