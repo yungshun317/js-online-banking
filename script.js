@@ -62,6 +62,7 @@ const labelSumIn = document.querySelector('.summary__value--in');
 const labelSumOut = document.querySelector('.summary__value--out');
 const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
+const labelDate = document.querySelector(".date");
 
 const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
@@ -245,9 +246,35 @@ btnLogin.addEventListener('click', function(e) {
         labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
         containerApp.style.opacity = 100;
 
+        // Create current date and time
+        const now = new Date();
+        const options = {
+            hour: "numeric",
+            minute: "numeric",
+            day: "numeric",
+            month: "numeric",
+            year: "numeric",
+            // weekday: "long"
+        };
+        // const locale = navigator.language;
+        // console.log(locale);
+
+        labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(now);
+
+        // const day = `${now.getDate()}`.padStart(2, 0);
+        // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+        // const year = now.getFullYear();
+        // const hour = `${now.getHours()}`.padStart(2, 0);
+        // const min = `${now.getMinutes()}`.padStart(2, 0);
+        // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+
         // Clear input fields
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur();
+
+        // Timer
+        if (timer) clearInterval(timer);
+        timer = startLogOutTimer();
 
         // Update UI
         updateUI(currentAccount);
