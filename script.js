@@ -5,6 +5,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnCloseModal = document.querySelector('.btn--close-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 // Modal window
 const openModal = function (e) {
@@ -28,6 +30,43 @@ document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
         closeModal();
     }
+})
+
+// Button Scrolling
+btnScrollTo.addEventListener('click', function (e) {
+    const s1coords = section1.getBoundingClientRect();
+    console.log(s1coords);
+    /*
+    DOMRect {x: 0, y: 2120.296875, width: 1927, height: 1234.6875, top: 2120.296875, …}
+        bottom: 3354.984375
+        height: 1234.6875
+        left: 0
+        right: 1927
+        top: 2120.296875
+        width: 1927
+        x: 0
+        y: 2120.296875
+        [[Prototype]]: DOMRect
+    */
+    console.log(e.target.getBoundingClientRect());
+    /*
+    DOMRect {x: 465.171875, y: 819.046875, width: 110, height: 29, top: 819.046875, …}
+        bottom: 848.046875
+        height: 29
+        left: 465.171875
+        right: 575.171875
+        top: 819.046875
+        width: 110
+        x: 465.171875
+        y: 819.046875
+        [[Prototype]]: DOMRect
+    */
+    // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+    console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
+    // Current scroll (X/Y) 0 0
+    console.log('height/width viewport', document.documentElement.clientHeight, document.documentElement.clientWidth);
+    // height/width viewport 1353 1927
+    section1.scrollIntoView({ behavior: 'smooth' });
 })
 
 // [2] Online banking
