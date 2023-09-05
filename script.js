@@ -32,7 +32,7 @@ document.addEventListener('keydown', function (e) {
     }
 })
 
-// Button Scrolling
+// Button scrolling
 btnScrollTo.addEventListener('click', function (e) {
     const s1coords = section1.getBoundingClientRect();
     console.log(s1coords);
@@ -89,6 +89,9 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
         document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     }
 })
+
+// Tab component
+
 
 // [2] Online banking
 // Data
@@ -147,7 +150,7 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 
 // Elements
-const labelWelcome = document.querySelector('.welcome');
+// const labelWelcome = document.querySelector('.welcome');
 const labelBalance = document.querySelector('.balance__value');
 const labelSumIn = document.querySelector('.summary__value--in');
 const labelSumOut = document.querySelector('.summary__value--out');
@@ -294,7 +297,8 @@ const startLogOutTimer = function() {
         // When 0 seconds, stop timer and log out user
         if (time === 0) {
             clearInterval(timer);
-            labelWelcome.textContent = "Log in to get started";
+            // labelWelcome.textContent = "Log in to get started";
+            containerApp.style.display = 'none';
             containerApp.style.opacity = 0;
         }
 
@@ -334,7 +338,9 @@ btnLogin.addEventListener('click', function(e) {
 
     if (currentAccount?.pin === Number(inputLoginPin.value)) {
         // Display UI & message
-        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+        // labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+
+        containerApp.style.display = 'grid';
         containerApp.style.opacity = 100;
 
         // Create current date and time
@@ -436,6 +442,7 @@ btnClose.addEventListener('click', function(e) {
         accounts.splice(index, 1);
 
         // Hide UI
+        containerApp.style.display = 'none';
         containerApp.style.opacity = 0;
     }
 
