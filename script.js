@@ -356,7 +356,7 @@ const startLogOutTimer = function() {
             clearInterval(timer);
             // labelWelcome.textContent = "Log in to get started";
             containerApp.style.display = 'none';
-            containerApp.style.opacity = 0;
+            setTimeout(function() { containerApp.style.opacity = 0; }, 100);
         }
 
         // Decrease 1s
@@ -398,7 +398,7 @@ btnLogin.addEventListener('click', function(e) {
         // labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
 
         containerApp.style.display = 'grid';
-        containerApp.style.opacity = 100;
+        setTimeout(function() { containerApp.style.opacity = 100; }, 100);
 
         // Create current date and time
         const now = new Date();
@@ -500,7 +500,7 @@ btnClose.addEventListener('click', function(e) {
 
         // Hide UI
         containerApp.style.display = 'none';
-        containerApp.style.opacity = 0;
+        setTimeout(function() { containerApp.style.opacity = 0; }, 100);
     }
 
     inputCloseUsername.value = inputClosePin.value = '';
