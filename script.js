@@ -205,7 +205,7 @@ const slider = function () {
     const dotContainer = document.querySelector('.dots');
 
     // Functions
-    const createDots = function() {
+    const createDots = function () {
         slides.forEach(function (_, i) {
             dotContainer.insertAdjacentHTML(
                 'beforeend',
@@ -214,7 +214,7 @@ const slider = function () {
         });
     };
 
-    const activateDot = function(slide) {
+    const activateDot = function (slide) {
         document.querySelectorAll('.dots__dot')
             .forEach(dot => dot.classList.remove('dots__dot--active'));
 
@@ -222,11 +222,17 @@ const slider = function () {
             .classList.add('dots__dot--active');
     };
 
+    const goToSlide = function (slide) {
+        slides.forEach(
+            (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+        );
+    };
+
     const init = function() {
+        goToSlide(0);
         createDots();
         activateDot(0);
     }
-    
     init();
 }
 
