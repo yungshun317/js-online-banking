@@ -73,6 +73,18 @@ btnScrollTo.addEventListener('click', function (e) {
     // Current scroll (X/Y) 0 0
     console.log('height/width viewport', document.documentElement.clientHeight, document.documentElement.clientWidth);
     // height/width viewport 1353 1927
+
+
+    // Scroll
+    /*
+    window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset);
+
+    window.scrollTo({
+        left: s1coords.left + window.pageXOffset,
+        right: s1coords.top + window.pageYOffset,
+        behavior: 'smooth'
+    });
+    */
     section1.scrollIntoView({ behavior: 'smooth' });
 })
 
@@ -278,7 +290,6 @@ const slider = function () {
         }
     });
 }
-
 slider();
 
 // [2] Online banking
